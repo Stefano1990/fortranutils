@@ -43,7 +43,8 @@ enddo
 !read(15,*)
 !read(15,*)
 
-! Do first row of blocks
+! Does all the rows in one go.
+
 do n=1,maxbl
  read(5000+n,*)
  write(*,*) 'reading 5000 blocks for bl nr:',n
@@ -391,11 +392,11 @@ do j=1,nj
  enddo
 enddo
 
-write(16,*) 'VARIABLES = "x" "y" "u" "f" "p" "rho" "uu" "vv" "ww" "uv" "ff" "rr" "scalvar"'
+write(16,*) 'VARIABLES = "x" "y" "u" "v" "w" "f" "p" "rho" "uu" "vv" "ww" "uv" "ff" "rr" "scalvar"'
 write(16,*) 'ZONE I=', ni,', J=', nj
 do j=1,nj
  do i=1,ni
-  write(16,*) xp(i,j), yp(i,j), up(i,j), sc1p(i,j), pp(i,j), rhop(i,j), &
+  write(16,*) xp(i,j), yp(i,j), up(i,j),vp(i,j),wp(i,j),sc1p(i,j), pp(i,j), rhop(i,j), &
       uufluc(i,j), vvfluc(i,j), wwfluc(i,j), uvfluc(i,j), fffluc(i,j), rrfluc(i,j),sc1varp(i,j)
             
  enddo
