@@ -3,8 +3,8 @@ program selfstats
 implicit none
 
 integer :: i,j,k,ni,nj,block1ni,block2ni,nj1,nj2,jhi,jlo
-parameter(ni = 1024, nj=240,nj1=120,nj2=100,block1ni=768,block2ni=256)
-double precision :: x(1:ni),y(1:nj)
+parameter(ni = 512, nj=140,nj1=120,nj2=100,block1ni=768,block2ni=256)
+double precision :: x(1:ni,1:nj),y(1:ni,1:nj)
 double precision :: u(1:ni,1:nj),v(1:ni,1:nj),w(1:ni,1:nj)
 double precision :: xi(1:ni,1:nj),p(1:ni,1:nj),rho(1:ni,1:nj)
 double precision :: evisc(1:ni,1:nj),pnorm(1:ni,1:nj)
@@ -22,15 +22,16 @@ open(unit=15, file = 'statistics.dat')
 read(15,*)
 read(15,*)
 
-
-
 !Now for the mixing layer domain
-read(15,*)
 do j=1, nj
 do i=1, ni
-read(15,*) x(i), y(j), &
-     u(i,j),v(i,j),w(i,j),xi(i,j),p(i,j),rho(i,j), &
-     evisc(i,j), uu(i,j),vv(i,j),ww(i,j),uv(i,j),ff(i,j)
+! Changed this to reflect my statistics.dat 15. May 2014
+read(15,*) x(i,j),y(i,j),u(i,j),v(i,j),w(i,j),xi(i,j), &
+           p(i,j),rho(i,j),uu(i,j),vv(i,j),ww(i,j),    &
+           uv(i,j),ff(i,j),rr(i,j)
+!read(15,*) x(i,j), y(i,j), &
+!     u(i,j),v(i,j),w(i,j),xi(i,j),p(i,j),rho(i,j), &
+!     evisc(i,j), uu(i,j),vv(i,j),ww(i,j),uv(i,j),ff(i,j)
 enddo
 enddo
 
@@ -146,7 +147,7 @@ write(25,*) 'VARIABLES = "x" "y" "u" "xi" "urms" "vrms" "wrms" "uv" "xirms" "pno
 write(25,*) 'ZONE I=', ni, ', J=', nj
 do j=1,nj
 do i=1,ni
-write(25,*) x(i),y(j), unorm(i,j), xi(i,j), uunorm(i,j),vvnorm(i,j), wwnorm(i,j), uvnorm(i,j), ffnorm(i,j),pnorm(i,j)
+write(25,*) x(i,j),y(i,j), unorm(i,j), xi(i,j), uunorm(i,j),vvnorm(i,j), wwnorm(i,j), uvnorm(i,j), ffnorm(i,j),pnorm(i,j)
 enddo
 enddo
 

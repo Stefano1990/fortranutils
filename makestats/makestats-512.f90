@@ -46,7 +46,6 @@ enddo
 ! Do first row of blocks
 do n=1,maxbl
  read(5000+n,*)
- write(*,*) 'reading 5000 blocks for bl nr:',n
  do j=1,njb
   do i=1,nib
    read(5000+n,*) x(i,j,n), y(i,j,n), u(i,j,n),v(i,j,n),w(i,j,n),&
@@ -55,7 +54,6 @@ do n=1,maxbl
  enddo
  
  read(6000+n,*)
- write(*,*) 'reading 6000 blocks for bl nr:',n
  do j=1,njb
   do i=1,nib
     read(6000+n,*) x(i,j,n), y(i,j,n), uu(i,j,n),vv(i,j,n),ww(i,j,n),uv(i,j,n), &
@@ -389,12 +387,22 @@ do j=1,nj
  enddo
 enddo
 
-write(16,*) 'VARIABLES = "x" "y" "u" "v" "w" "f" "p" "rho" "uu" "vv" "ww" "uv" "ff" "rr" "scalvar"'
+write(16,*) 'VARIABLES = "x" "y" "u" "v" "w" "f" "p" "rho" &
+                         "uu" "vv" "ww" "uv" "ff" "rr"'
+!write(16,*) 'VARIABLES = "x" "y" "u" "v" "w" "f" "p" "rho" "uu" & 
+!                "vv" "ww" "uv" "ff" "rr" "scalvar"'
 write(16,*) 'ZONE I=', ni,', J=', nj
 do j=1,nj
  do i=1,ni
-  write(16,*) xp(i,j),yp(i,j),up(i,j),vp(i,j),wp(i,j),sc1p(i,j), pp(i,j), rhop(i,j), &
-      uufluc(i,j), vvfluc(i,j), wwfluc(i,j), uvfluc(i,j), fffluc(i,j), rrfluc(i,j),sc1varp(i,j)
+! Note: if sc1varp is printed out the grid is fucked up.
+! Don't know why...
+   write(16,*) xp(i,j),yp(i,j),up(i,j),vp(i,j),wp(i,j), &
+               sc1p(i,j),pp(i,j),rhop(i,j),uufluc(i,j), &
+               vvfluc(i,j),wwfluc(i,j),uvfluc(i,j), &
+               fffluc(i,j),rrfluc(i,j)
+!  write(16,*) xp(i,j),yp(i,j),up(i,j),vp(i,j),wp(i,j), & 
+!      sc1p(i,j), pp(i,j), rhop(i,j), &
+!      uufluc(i,j), vvfluc(i,j), wwfluc(i,j), uvfluc(i,j), fffluc(i,j), rrfluc(i,j),sc1varp(i,j)
             
  enddo
 enddo
