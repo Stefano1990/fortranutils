@@ -35,7 +35,7 @@
       integer pmg_k, pmg_ij,ps_wij,itemp(3), iblk0
       integer ps_ijk,ps_wijk,p_xy,mpierr,sreq(maxbl2*3)
       integer ilev1,status(MPI_STATUS_SIZE) 
-      integer ii, poff,mg_or_sg,i0,gm,fm,dm
+      integer ii, poff,mg_or_sg,i0,gm,fm,dm,bm,tm
 
       do iblk = 1,numbl
 
@@ -90,6 +90,7 @@ C POINTERS FOR SINGLE GRID QUANTITIES
         dm = 1000 + iblkl2g(iblk)
         fm = 3000 + iblkl2g(iblk)
         gm = 4000 + iblkl2g(iblk)
+        tm = 8000 + iblkl2g(iblk)
 
         nip1 = bl_nijkp1(1,iblk)
         njp1 = bl_nijkp1(2,iblk)
@@ -144,6 +145,10 @@ C POINTERS FOR SINGLE GRID QUANTITIES
             call write_2dfile2(w2a,w2b,w2c,w2d,
      &          w2e,w2f,x(p_xy),y(p_xy),nip1,njp1,dm)
 
+
+      call dimy_ave(work1(ps_wijk), w2h,2)
+      call write_xzfile(w2h,x(p_xy),z(p_xy),
+     &          nip1,njp1,nkp1,tm)
       enddo
 
 
@@ -166,17 +171,18 @@ C POINTERS FOR SINGLE GRID QUANTITIES
        ps_wijk = 1 + ((iblk-1)*nip1*njp1*nkp1) 
        ps_wij = 1 + (iblk-1)*nip1*njp1	  
 	  
+        bm = 2000 + iblkl2g(iblk)
+        	  
        call yz_output(u(ps_ijk),v(ps_ijk),w(ps_ijk),
      &     rho(ps_ijk),sc1(ps_ijk),dip(pmg_ij),diu(pmg_ij),djp(pmg_ij),
      &     djv(pmg_ij),dkp(pmg_k),x(p_xy),y(p_xy),z(p_xy),
-     &     nip1,njp1,nkp1,step)
+     &     nip1,njp1,nkp1,step,bm)  
+
       enddo  
 
-!To Do
-!write out single plane velocity,scalar etc.
-!write out spanwise-averaged density and shadowgraph?
+
 !write out x-z y-averaged schlieren and shadowgraph
-!do y-z cuts - should be easy!
+
    
        end subroutine
 
@@ -240,19 +246,19 @@ C POINTERS FOR SINGLE GRID QUANTITIES
       end
 
 !----------------------------------------------------------------
-! This routine calculates schileren (and shadowgraph eventually)
+! This routine calculates schileren
 
       subroutine comp_schlieren(u,v,w,rho,dip,diu,djp,djv,dkp,
      &             work1,dim) 
  
       implicit none
 C PARAMETERS
-
+#include "mpif.h"
 #include "dim.inc"
 #include "bc_type.inc"
 
 C INCLUDE FILES
-
+#include "data_type.inc"
 #include "cb.gridp.inc"
 #include "cb.lgridp.inc"
 #include "cb.lgrid.inc"
@@ -269,11 +275,11 @@ C INCLUDE FILES
 !local
       integer  i, j, k, jk, ijk, ijkw, ijke, ijks, ijkn, ijkl, ijkr,
      &         ijkse, ijknw, ijkne, ijkel, ijknl, ijkwr, ijker, ijksr,
-     &         ijknr,dim
-      integer  koff,iside_next,bc,iblk_next,iblk
-      real     drdx,drdy,
-     &         drdz 
+     &         ijknr,dim,ijkee,ijkrr,ijknn
+      integer  koff,iside_next,bc,iblk_next,iblk,ierr
+      real     drdx,drdy,drdz,red,temp
       real     d2rdx,d2rdy,d2rdz,rhoef,rhowf,rhonf,rhosf,rholf,rhorf
+
 
  
          jo = nip1
@@ -281,7 +287,7 @@ C INCLUDE FILES
          ni = nip1 - 1
          nj = njp1 - 1
          nk = nkp1 - 1
-
+       temp = 0.0
       do k = 2,nk
         koff = ko*(k-1)
         do j = 2,nj
@@ -319,21 +325,69 @@ C INCLUDE FILES
             drdz = (rhorf - rholf)/dkp(k)
 
             if(dim .eq. 1) then
-            work1(ijk) = drdx+drdy+drdz
-                        
- 
-            endif
-            if (dim .eq. 2) then
-           d2rdx = drdx / diu(i,j)
-           d2rdy = drdy / djv(i,j)
-           d2rdz = drdz / dkp(k)
-
-            work1(ijk) = d2rdx+d2rdy+d2rdz
+            work1(ijk) = sqrt(drdx**2+drdy**2+drdz**2)
+            if(work1(ijk) .ge. temp) temp = work1(ijk)                     
+!            write(*,*) pe, work1(ijk), temp
             endif
 
               enddo
             enddo
        enddo
+      call MPI_REDUCE(temp, red, 1, REAL_TYPE_MPI,
+     &  MPI_MAX, 0, MPI_COMM_WORLD, ierr)
+!      if(master) write(*,*), red
+      call MPI_BCAST(red, 1, REAL_TYPE_MPI, 0, MPI_COMM_WORLD, ierr)
+!      if(master) write(*,*) red
+      
+      do k = 2,nk
+        koff = ko*(k-1)
+        do j = 2,nj
+          jk = jo*(j-1) + koff
+          do i = 2,ni
+
+            ijk   = i + jk
+
+            ijkw  = ijk  - 1
+            ijke  = ijk  + 1
+            ijks  = ijk  - jo
+            ijkn  = ijk  + jo
+            ijkl  = ijk  - ko
+            ijkr  = ijk  + ko
+
+            ijkse = ijks + 1
+            ijknw = ijkn - 1
+            ijkne = ijkn + 1
+
+            ijkel = ijke - ko
+            ijknl = ijkn - ko
+            ijkwr = ijkw + ko
+            ijker = ijke + ko
+            ijksr = ijks + ko
+            ijknr = ijkn + ko
+
+            rhoef = 0.5*(rho(ijk) + rho(ijke))
+            rhowf = 0.5*(rho(ijkw) + rho(ijk))
+            rhonf = 0.5*(rho(ijkn) + rho(ijk))
+            rhosf = 0.5*(rho(ijks) + rho(ijk))
+            rholf = 0.5*(rho(ijkl) + rho(ijk))
+            rhorf = 0.5*(rho(ijk) + rho(ijkr))   
+            drdx = (rhoef - rhowf) /diu(i,j)
+            drdy = (rhonf - rhosf)/ djv(i,j)
+            drdz = (rhorf - rholf)/dkp(k)
+
+            if(dim .eq. 1) then
+            work1(ijk) = 0.8*exp(-15.d0*work1(ijk)/ red)
+            endif
+            if(dim .eq. 2) then
+            work1(ijk) = 0.8*exp(-150.d0*work1(ijk)/ red)
+            endif            
+
+              enddo
+            enddo
+       enddo
+
+
+
 
       return 
       end subroutine 
@@ -410,26 +464,26 @@ C INCLUDE FILES
       end subroutine
 !---------------------------------------------------------
 !----------------------------------------------------------
-      subroutine write_xzfile(worka,workb,
-     &          x,z,nip1,njp1,nkp1) 
+      subroutine write_xzfile(worka,
+     &          x,z,nip1,njp1,nkp1,tm) 
 	 
        implicit none
 
       integer nip1, nkp1,njp1
-      real worka(*),workb(*)
+      real worka(*)
       real x(nip1+1,njp1+1), z(nkp1+1)
-      integer joff,j,i,ik,koff,k
+      integer joff,j,i,ik,koff,k,tm
 
 !THESE INDICES WORK FOR OUTPUTTING SPANWISE AVERAGED DATA
 !MOVE BACK TO MAIN ROUTINE AND USE FOR DATA TRANSFER ETC.
        
-      write(92,*) 'ZONE I=', nip1-2,' J=', nkp1-2
+      write(tm,*) 'ZONE I=', nip1-2,' J=', nkp1-2
       koff = nip1
       do k=2,nkp1-1
 !      write(*,*) k, z(k) 
       do i=2, nip1-1
        ik = i+koff*(k-1)
-      write(92,*) x(i,1),z(k),worka(ik),workb(ik)
+      write(tm,*) x(i,1),z(k),worka(ik)
       enddo
       enddo
 	    
@@ -440,11 +494,6 @@ C INCLUDE FILES
 !---------------------------------------------------------
 !-------------------------------------------------------------
        subroutine dimy_ave(f, f2d,dim)
-
-! amend this to fit in with the current implementation
-! generalise this to a) so spanwise averaging
-! b) do cross-stream averaging, and c) pick out a plane 
-! at mid-span of domin
 
       implicit none
 
@@ -573,7 +622,7 @@ C INCLUDE FILES
        subroutine yz_output(u,v,w,
      &      rho,sc1,dip,diu,djp,
      &      djv,dkp,x,y,z,
-     &      nip1,njp1,nkp1,step)  
+     &      nip1,njp1,nkp1,step,bm)  
  
 
       implicit none
@@ -582,7 +631,7 @@ C INCLUDE FILES
 #include "cb.comm.inc"
 
       integer  i,j,k,num,ilow,nip1,njp1,nkp1,unitnum,ijk,step
-      integer  joff,koff,countout
+      integer  joff,koff,countout,bm
       real     u(nip1*njp1*nkp1), v(nip1*njp1*nkp1), w(nip1*njp1*nkp1)
       real     rho(nip1*njp1*nkp1),sc1(nip1*njp1*nkp1)
       real     dip(nip1,njp1), diu(nip1,njp1), djp(nip1,njp1),
@@ -595,31 +644,11 @@ C INCLUDE FILES
 !work out variable based file naming here.....
 !can remove the do i=2,nip1 loop
      
-!       write(*,*) pe, specout
-
-!       countout = 0
-!      if(step .eq. fiel_freq .and. specout .eq. .true.) then
-!      do num = 1,9
-!      unitnum = 110+num
-!       if(yz(num) .gt. 0.0) then
-!       do i=2, nip1
-!        if(x(i,1) .lt. yz(num) .and. x(nip1,1) .gt. yz(num) 
-!     &     .and. x(2,1) .lt. yz(num)) then
-!        open(unit = unitnum)
-!        if(countout .eq. 0) then
-!        write(unitnum,*) 'VARIABLES = "x" "z" "u" "v" "w" "xi" "rho"'
-!        endif
-!        countout = countout+1
-!       endif
-!      enddo   
-!      endif
-!      enddo
-!      endif
 
       countout = 0
-      if(step .eq. fiel_freq) then
-      do num = 1,20
-      unitnum = 130+num
+      if((step-fiel_freq) .eq. 0) then
+      do num = 1,9
+      unitnum = bm
        if(yz(num) .gt. -0.2) then
        do i=2, nip1
         if(x(i,1) .lt. yz(num) .and. x(nip1,1) .gt. yz(num) 
@@ -638,7 +667,7 @@ C INCLUDE FILES
 
 !.................................................
 
-      do num = 1,20
+      do num = 1,9
       writeout = .false.
       ilow = 0
        if(yz(num) .gt. -0.2) then
@@ -651,11 +680,11 @@ C INCLUDE FILES
       enddo
 
 
-      unitnum = 130+num
+      unitnum = bm
       joff = nip1
       if(writeout) then
-      write(unitnum,*) 'ZONE I=', nkp1-2,' J=', njp1-2
-      do j=2,njp1-1
+      write(unitnum,*) 'ZONE I=', nkp1-2,' J=', njp1-1
+      do j=2,njp1
       do k=2, nkp1-1
         koff = nip1*njp1*(k-1)
         ijk = ilow + joff*(j-1) + koff 
@@ -671,5 +700,4 @@ C INCLUDE FILES
       enddo  !num
 
        return
-       end subroutine
-
+       end
