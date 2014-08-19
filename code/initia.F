@@ -79,7 +79,7 @@ C-----------------------------------------------------------------------
               vin = vprof(j)
               call random_number(random)
               perturb = 0.005*uprof(3)*2.0*(random-0.5)
-              fin = 0.0
+              fin = 1.0
               rhoin = rholo
               call random_number(random)
               perturb = 0.005*uprof(3)*2.0*(random-0.5)
@@ -97,7 +97,7 @@ C-----------------------------------------------------------------------
               vin = vprof(j+64)
               call random_number(random)
               perturb = 0.005*uprof(3)*2.0*(random-0.5)
-              fin = 0.0
+              fin = 1.0
               rhoin = rholo
               call random_number(random)
               perturb = 0.005*uprof(3)*2.0*(random-0.5)
@@ -116,7 +116,7 @@ C-----------------------------------------------------------------------
               vin = vprof(j+128)
               call random_number(random)
               perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
-              fin = 1.0
+              fin = 0.0
               rhoin = rhohi
               call random_number(random)
               perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
@@ -135,7 +135,7 @@ C-----------------------------------------------------------------------
               vin = vprof(j+192)
               call random_number(random)
               perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
-              fin = 1.0
+              fin = 0.0
               rhoin = rhohi
               call random_number(random)
               perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
