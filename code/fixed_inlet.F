@@ -84,45 +84,45 @@ c Local
             ij= i1+ joff + boff1
 
             do k = 1, nkp1
-            if (iblkl2g(ibl) .eq. inlet1) then
+            if (iblkl2g(ibl) == inlet1) then
                 uin = uprof(j)
                 vin = vprof(j)
                 call random_number(random)
                 perturb = 0.005*uprof(3)*2.0*(random-0.5)
-                fin = 1.0
+                fin = 0.0
                 rhoin = rholo
                 call random_number(random)
                 perturb = 0.005*uprof(3)*2.0*(random-0.5)
                 win = perturb
             endif
-            if (iblkl2g(ibl) .eq. inlet2) then
+            if (iblkl2g(ibl) == inlet2) then
                 uin = uprof(j+(nj-1))
                 vin = vprof(j+(nj-1))
                 call random_number(random)
                 perturb = 0.005*uprof(3)*2.0*(random-0.5)
-                fin = 1.0
+                fin = 0.0
                 rhoin = rholo
                 call random_number(random)
                 perturb = 0.005*uprof(3)*2.0*(random-0.5)
                 win = perturb
             endif
-            if (iblkl2g(ibl) .eq. inlet3) then
+            if (iblkl2g(ibl) == inlet3) then
                 uin = uprof(j+2*(nj-1))
                 vin = vprof(j+2*(nj-1))
                 call random_number(random)
                 perturb = 0.005*uprof(4*(nj-2))*2.0*(random-0.5)
-                fin = 0.0
+                fin = 1.0
                 rhoin = rhohi
                 call random_number(random)
                 perturb = 0.005*uprof(4*(nj-2))*2.0*(random-0.5)
                 win = perturb
             endif
-            if (iblkl2g(ibl) .eq. inlet4) then
+            if (iblkl2g(ibl) == inlet4) then
                 uin = uprof(j+3*(nj-1))
                 vin = vprof(j+3*(nj-1))
                 call random_number(random)
                 perturb = 0.005*uprof(4*(nj-2))*2.0*(random-0.5)
-                fin = 0.0
+                fin = 1.0
                 rhoin = rhohi
                 call random_number(random)
                 perturb = 0.005*uprof(4*(nj-2))*2.0*(random-0.5)

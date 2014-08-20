@@ -41,7 +41,6 @@ C-----------------------------------------------------------------------
 
       fin1 = 1.0
       fin2 = 0.0
-
       do ibl = 1, numbl
 
 
@@ -74,7 +73,7 @@ C-----------------------------------------------------------------------
 
             random = gasdev(iseed)
             ! Bottom row (1st row)
-            if(iblkl2g(ibl) >= 1 .and. iblkl2g(ibl) <= 32) then
+            if(iblkl2g(ibl) >= inlet1 .and. iblkl2g(ibl) < inlet2) then
               uin = uprof(j)
               vin = vprof(j)
               call random_number(random)
@@ -92,9 +91,9 @@ C-----------------------------------------------------------------------
               rhonp1(ijk) = rholo
             endif
             ! 2nd row (64 < j < 128)
-            if(iblkl2g(ibl) >= 33 .and. iblkl2g(ibl) <= 64) then
-              uin = uprof(j+64)
-              vin = vprof(j+64)
+            if(iblkl2g(ibl) >= inlet2 .and. iblkl2g(ibl) < inlet3) then
+              uin = uprof(j+(nj-1))
+              vin = vprof(j+(nj-1))
               call random_number(random)
               perturb = 0.005*uprof(3)*2.0*(random-0.5)
               fin = 1.0
@@ -111,9 +110,9 @@ C-----------------------------------------------------------------------
               rhonp1(ijk) = rholo
             endif
             ! 3rd row (129 < j < 193)
-            if(iblkl2g(ibl) >= 65 .and. iblkl2g(ibl) <= 96) then
-              uin = uprof(j+128)
-              vin = vprof(j+128)
+            if(iblkl2g(ibl) >= inlet3 .and. iblkl2g(ibl) < inlet4) then
+              uin = uprof(j+2*(nj-1))
+              vin = vprof(j+2*(nj-1))
               call random_number(random)
               perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
               fin = 0.0
@@ -130,9 +129,9 @@ C-----------------------------------------------------------------------
               rhonp1(ijk) = rholo
             endif
             ! 4th row (top row) (193 < j < 258)
-            if(iblkl2g(ibl) >= 97 .and. iblkl2g(ibl) <= 128) then
-              uin = uprof(j+192)
-              vin = vprof(j+192)
+            if(iblkl2g(ibl) >= inlet4) then
+              uin = uprof(j+3*(nj-1))
+              vin = vprof(j+3*(nj-1))
               call random_number(random)
               perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
               fin = 0.0
