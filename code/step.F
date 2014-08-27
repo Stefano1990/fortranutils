@@ -537,12 +537,12 @@
        endif ! istep
  
 !Write out instantaneous data for the computation of spectra                
-!       if( istep .ge. statstart) then
-!       if (mod(istep,spec_freq).eq.0 .or. istep.eq.last)then
-!         call spectra(x,y,z,dip,diu,djp,djv,dkp,
-!     &             u,v,w,sc1,rho)
-!       endif
-!       endif
+       if( istep .ge. statstart) then
+       if (mod(istep,spec_freq).eq.0 )then
+         call spectra(x,y,z,dip,diu,djp,djv,dkp,
+     &             u,v,w,sc1,rho)
+       endif
+       endif
 
        enddo  !istep - end of main time step loop
        

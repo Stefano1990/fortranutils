@@ -1,4 +1,3 @@
-! outputs should be rhou,rhov,rhow, rhouu,rhovv, rhoww, rhouv
       subroutine statistics(u,v,w,p,rho,um,vm,wm,pm,rhom,ruv,rvw,
      &                  rwu,ruu,rvv,rww,
      &                  rrh,gam,gamsc1,
@@ -21,7 +20,7 @@
       integer max3d, max2d
 
 !This is rather inelegant hard-coding of an array      
-      parameter (max3d = 65*130*130)
+      parameter (max3d = 65*130*192)
       parameter (max2d = 10000)
       
       real   u(*), v(*), w(*), p(*), gam(*), gamsc1(*)
@@ -649,8 +648,10 @@ C  LOCAL
 	  
 	  
       do iblk = 1,numbl
+! make sure these are the block numbers where the spectra data is outputted
+        if(iblkl2g(iblk) .ge. 33 .and. iblkl2g(iblk) .le. 48) then
 
-        unitnum = 200+iblkl2g(iblk)  
+        unitnum = 7000+iblkl2g(iblk)
         nip1 = bl_nijkp1(1,iblk)
         njp1 = bl_nijkp1(2,iblk)
         nkp1 = bl_nijkp1(3,iblk)
@@ -674,7 +675,7 @@ C POINTERS FOR SINGLE GRID QUANTITIES
      &     rho(ps_ijk),sc1(ps_ijk),dip(pmg_ij),diu(pmg_ij),djp(pmg_ij),
      &     djv(pmg_ij),dkp(pmg_k),x(p_xy),y(p_xy),z(p_xy),
      &     nip1,njp1,nkp1,unitnum)  
-
+      endif
       enddo  
 	  
 		  
@@ -709,15 +710,16 @@ C POINTERS FOR SINGLE GRID QUANTITIES
   
  
  
-       if(specout) then
-        koff = nip1*njp1*((nkp1/2)-1) 
-        jk = nip1*(jsplit-1) + koff 
+ 
+        koff = nip1*njp1*((nkp1/2)-1)
+        jk = nip1*(3-1) + koff
          do i=2, nip1-1
          ijk = i + jk
          write(unitnum,*) i, u(ijk), v(ijk), w(ijk), sc1(ijk), rho(ijk)
          enddo
-        endif  
-  
+
+
+ 
         return
   
        end subroutine
