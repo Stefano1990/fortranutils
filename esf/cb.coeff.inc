@@ -1,0 +1,3 @@
+C COMMON FOR THE COEFFICIENTS
+
+      real   
