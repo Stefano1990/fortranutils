@@ -1,0 +1,208 @@
+# DO NOT DELETE THIS LINE - used by make depend
+arrcopy.o: dim.inc cb.lgrid.inc
+arrcopy.o:
+cflest.o: cb.gridp.inc dim.inc data_type.inc comm.inc cb.comm.inc
+cflest.o: cb.lcontrol.inc cb.control.inc cb.lgrid.inc bc_type.inc const.inc
+cflest.o:
+cflest_block.o: const.inc
+cflest_block.o:
+cmp_tenergy_ch.o: dim.inc data_type.inc cb.control.inc comm.inc les.inc
+cmp_tenergy_ch.o: cb.lgrid.inc cb.comm.inc const.inc
+cmp_tenergy_ch.o:
+cmp_vorticity_block.o: cb.address.inc dim.inc cb.control.inc les.inc comm.inc
+cmp_vorticity_block.o: cb.lgrid.inc cb.comm.inc
+cmp_vorticity_block.o:
+coeff_p.o: dim.inc cb.control.inc cb.lgrid.inc
+coeff_p.o:
+coeff_p_block.o: bc_type.inc
+coeff_p_block.o:
+comp_metric.o: cb.gridp.inc dim.inc data_type.inc cb.control.inc comm.inc
+comp_metric.o: cb.lgrid.inc cb.comm.inc
+comp_metric.o:
+control_32.o: cb.address.inc dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+control_32.o: cb.control.inc cb.lgrid.inc
+control_32.o:
+control_c.o: cb.address.inc dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+control_c.o: cb.control.inc cb.lgrid.inc
+control_c.o:
+control_d.o: cb.address.inc dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+control_d.o: cb.control.inc cb.lgrid.inc
+control_d.o:
+conv_exitbc1_block.o: les.inc
+conv_exitbc1_block.o:
+conv_exitbc2_block.o: les.inc
+conv_exitbc2_block.o:
+conv_exitbc_32.o: dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+conv_exitbc_32.o: cb.control.inc cb.lgrid.inc bc_type.inc
+conv_exitbc_32.o:
+conv_exitbc_c.o: dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+conv_exitbc_c.o: cb.control.inc cb.lgrid.inc bc_type.inc
+conv_exitbc_c.o:
+conv_exitbc_d.o: dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+conv_exitbc_d.o: cb.control.inc cb.lgrid.inc bc_type.inc
+conv_exitbc_d.o:
+conv_exitbc_scale.o: cb.lcontrol.inc dim.inc
+conv_exitbc_scale.o:
+extrap_p.o: dim.inc les.inc cb.lgrid.inc
+extrap_p.o:
+extrap_p_block.o: bc_type.inc
+extrap_p_block.o:
+file_2.o: cb.lcontrol.inc dim.inc data_type.inc comm.inc cb.lgrid.inc
+file_2.o: cb.comm.inc
+file_2.o:
+file_2b.o: cb.lcontrol.inc dim.inc data_type.inc comm.inc cb.lgrid.inc
+file_2b.o: cb.comm.inc
+file_2b.o:
+file_3.o: dim.inc data_type.inc comm.inc cb.lgrid.inc cb.comm.inc
+file_3.o:
+file_twall.o: dim.inc cb.control.inc comm.inc cb.comm.inc
+file_twall.o:
+gather_inletbc.o: dim.inc cb.control.inc les.inc cb.lgrid.inc
+gather_inletbc.o:
+global_sum.o: cb.lcontrol.inc dim.inc data_type.inc comm.inc cb.lgrid.inc
+global_sum.o: cb.comm.inc const.inc
+global_sum.o:
+init_array.o: dim.inc cb.control.inc cb.lgrid.inc
+init_array.o:
+initia.o: dim.inc comm.inc cb.control.inc les.inc cb.lgrid.inc cb.comm.inc
+initia.o: const.inc
+initia.o:
+initia_32.o: dim.inc comm.inc cb.control.inc les.inc cb.lgrid.inc cb.comm.inc
+initia_32.o: const.inc
+initia_32.o:
+lmg_solve.o: cb.address.inc dim.inc cb.control.inc comm.inc cb.lgrid.inc
+lmg_solve.o: cb.comm.inc const.inc
+lmg_solve.o:
+main.o: cb.address.inc cb.gridp.inc dim.inc data_type.inc comm.inc cb.comm.inc
+main.o: cb.control.inc cb.big.inc cb.lgrid.inc
+main.o:
+mass_change.o: dim.inc comm.inc data_type.inc 
+mass_change.o: cb.lgridp.inc cb.lgrid.inc cb.control.inc cb.comm.inc
+mass_change.o:
+mass_change_block.o: dim.inc cb.gridp.inc cb.lgridp.inc cb.lgrid.inc
+mass_change_block.o:
+mass_flux.o: les.inc
+mass_flux.o:
+metric_swap1.o: dim.inc cb.lgrid.inc bc_type.inc
+metric_swap1.o:
+metric_swap2.o: dim.inc cb.lgrid.inc bc_type.inc
+metric_swap2.o:
+mg_xyz.o: dim.inc cb.control.inc comm.inc cb.lgrid.inc bc_type.inc cb.comm.inc
+mg_xyz.o:
+norms.o: cb.lcontrol.inc dim.inc data_type.inc comm.inc cb.lgrid.inc cb.comm.inc
+norms.o:
+p_ref_subtract.o: dim.inc data_type.inc cb.control.inc comm.inc cb.lgrid.inc
+p_ref_subtract.o: cb.comm.inc
+p_ref_subtract.o:
+prol_block.o: cb.lcontrol.inc dim.inc cb.lgrid.inc bc_type.inc
+prol_block.o:
+prolongation.o: dim.inc les.inc cb.lgrid.inc
+prolongation.o:
+rdcfi.o: dim.inc data_type.inc comm.inc cb.comm.inc
+rdcfi.o:
+rdcfia.o: dim.inc data_type.inc comm.inc cb.comm.inc
+rdcfia.o:
+rdcfr.o: dim.inc data_type.inc comm.inc cb.comm.inc
+rdcfr.o:
+rdcfra.o: dim.inc data_type.inc comm.inc cb.comm.inc
+rdcfra.o:
+read_2b.o: cb.lcontrol.inc dim.inc data_type.inc comm.inc cb.lgrid.inc
+read_2b.o: cb.comm.inc
+read_2b.o:
+read_3.o: dim.inc data_type.inc comm.inc cb.lgrid.inc cb.comm.inc
+read_3.o:
+read_bl_info.o: dim.inc data_type.inc comm.inc cb.lgrid.inc cb.comm.inc
+read_bl_info.o:
+read_bl_size.o: dim.inc comm.inc cb.lgrid.inc cb.comm.inc
+read_bl_size.o:
+read_lib.o: comm.inc data_type.inc cb.address.inc cb.comm.inc
+read_lib.o:
+read_twall.o: dim.inc comm.inc cb.control.inc cb.lgrid.inc cb.comm.inc
+read_twall.o:
+read_xyz.o: dim.inc data_type.inc comm.inc cb.lgrid.inc cb.comm.inc
+read_xyz.o:
+readfile.o: dim.inc data_type.inc comm.inc cb.comm.inc
+readfile.o:
+restriction.o: cb.lcontrol.inc dim.inc cb.lgrid.inc bc_type.inc
+restriction.o:
+search_lib.o: dim.inc cb.lgrid.inc
+search_lib.o: 
+set_const.o: cb.lcontrol.inc dim.inc
+set_const.o:
+set_gam.o: dim.inc cb.lgrid.inc cb.lgridp.inc
+set_gam.o:
+set_gam_block.o: cb.gridp.inc dim.inc comm.inc cb.comm.inc cb.control.inc
+set_gam_block.o: cb.lgridp.inc cb.lgrid.inc bc_type.inc
+set_gam_block.o:
+set_interfaces.o: cb.address.inc dim.inc data_type.inc comm.inc cb.comm.inc
+set_interfaces.o: cb.lcontrol.inc les.inc cb.control.inc cb.big.inc cb.lgrid.inc
+set_interfaces.o: bc_type.inc
+set_interfaces.o:
+set_loop_bound.o: dim.inc data_type.inc comm.inc cb.comm.inc cb.lcontrol.inc
+set_loop_bound.o: les.inc cb.lgrid.inc bc_type.inc
+set_loop_bound.o:
+set_offset.o: dim.inc data_type.inc cb.control.inc comm.inc cb.lgrid.inc
+set_offset.o: bc_type.inc cb.comm.inc
+set_offset.o:
+set_pointer.o: cb.address.inc dim.inc cb.control.inc cb.lgrid.inc
+set_pointer.o:
+set_sc1var.o: dim.inc cb.lgridp.inc cb.lgrid.inc
+set_sc1var.o:
+set_sc1var_block.o: dim.inc cb.gridp.inc cb.lgridp.inc cb.lgrid.inc
+set_sc1var_block.o: cb.control.inc
+set_sc1var_block.o:
+set_sc1.o: cb.comm.inc
+set_sc1.o: 
+set_u_int_block.o: dim.inc comm.inc cb.comm.inc
+set_u_int_block.o:
+set_uv_int.o: dim.inc comm.inc cb.comm.inc cb.lcontrol.inc les.inc
+set_uv_int.o: cb.control.inc cb.lgrid.inc bc_type.inc const.inc
+set_uv_int.o:
+set_virt_bc.o: dim.inc comm.inc cb.comm.inc cb.lcontrol.inc les.inc
+set_virt_bc.o: cb.control.inc cb.lgrid.inc bc_type.inc const.inc
+set_virt_bc.o:
+set_virt_bc_block.o: les.inc
+set_virt_bc_block.o:
+set_w_int.o: cb.lcontrol.inc dim.inc cb.control.inc les.inc cb.lgrid.inc
+set_w_int.o: bc_type.inc const.inc
+set_w_int.o:
+setupcomm.o: dim.inc comm.inc cb.comm.inc
+setupcomm.o:
+smooth.o: dim.inc cb.control.inc comm.inc cb.comm.inc
+smooth.o:
+solvers.o: dim.inc cb.control.inc
+solvers.o:
+solversc.o: dim.inc cb.control.inc
+solversc.o:
+sour_p.o: dim.inc data_type.inc cb.control.inc comm.inc cb.lgrid.inc cb.comm.inc
+sour_p.o:
+sporlx.o: dim.inc data_type.inc comm.inc cb.comm.inc cb.lcontrol.inc les.inc
+sporlx.o: cb.control.inc cb.lgrid.inc
+sporlx.o:
+sporlx2.o: dim.inc data_type.inc comm.inc cb.comm.inc cb.lcontrol.inc les.inc
+sporlx2.o: cb.control.inc cb.lgrid.inc
+sporlx2.o:
+statis3.o: cb.address.inc dim.inc data_type.inc comm.inc cb.comm.inc les.inc
+statis3.o: cb.control.inc cb.lgrid.inc
+statis3.o:
+swap_rhos.o: dim.inc cb.lgrid.inc cb.control.inc
+swap_rhos.o:
+swap_sc0.o: dim.inc data_type.inc comm.inc cb.comm.inc cb.lcontrol.inc les.inc
+swap_sc0.o: cb.control.inc cb.lgrid.inc bc_type.inc
+swap_sc0.o:
+swap_xyz.o: dim.inc data_type.inc comm.inc cb.control.inc cb.lgrid.inc
+swap_xyz.o: bc_type.inc cb.comm.inc
+swap_xyz.o:
+uvw_adv.o: cb.gridp.inc dim.inc cb.control.inc cb.lgrid.inc bc_type.inc
+uvw_adv.o:
+uvw_adv_block.o: les.inc
+uvw_adv_block.o:
+whitenoise_inbc_32.o: dim.inc cb.control.inc comm.inc les.inc cb.lgrid.inc
+whitenoise_inbc_32.o: cb.comm.inc
+whitenoise_inbc_32.o:
+whitenoise_inbc_c.o: dim.inc cb.control.inc comm.inc les.inc cb.lgrid.inc
+whitenoise_inbc_c.o: cb.comm.inc
+whitenoise_inbc_c.o:
+whitenoise_inbc_d.o: dim.inc cb.control.inc comm.inc les.inc cb.lgrid.inc
+whitenoise_inbc_d.o: cb.comm.inc
+whitenoise_inbc_d.o:
