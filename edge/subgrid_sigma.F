@@ -279,7 +279,7 @@ C ... SET GAM FOR OTHER DIRECTION & NOT OVERWRITE TW_SFK
 !     &        + 0.5*(g12+g21) + 0.5*(g13+g31) + 0.5*(g23+g32)
 !         SdijSdij = Sdij**2 
 !
-!        delta_xyz = (di*dj*dk)**.33333333
+        delta_xyz = (di*dj*dk)**.33333333
 
 
 !Cs here refers to the wale constant
