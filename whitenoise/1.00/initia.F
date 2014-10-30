@@ -77,12 +77,12 @@ C-----------------------------------------------------------------------
               uin = uprof(j)
               vin = vprof(j)
               call random_number(random)
-              perturb = 0.005*uprof(3)*2.0*(random-0.5)
+              perturb = 0.01*uprof(3)*2.0*(random-0.5)
               fin = 1.0
               rhoin = rholo
               call random_number(random)
-              perturb = 0.005*uprof(3)*2.0*(random-0.5)
-              sc1(ijk) = 0.0
+              perturb = 0.01*uprof(3)*2.0*(random-0.5)
+              sc1(ijk) = 1.0
               u(ijk) = uin+perturb
               v(ijk) = vin+perturb
               w(ijk) = perturb
@@ -95,13 +95,13 @@ C-----------------------------------------------------------------------
               uin = uprof(j+(nj-1))
               vin = vprof(j+(nj-1))
               call random_number(random)
-              perturb = 0.005*uprof(3)*2.0*(random-0.5)
+              perturb = 0.01*uprof(3)*2.0*(random-0.5)
               fin = 1.0
               rhoin = rholo
               call random_number(random)
-              perturb = 0.005*uprof(3)*2.0*(random-0.5)
+              perturb = 0.01*uprof(3)*2.0*(random-0.5)
               win = perturb
-              sc1(ijk) = 0.0
+              sc1(ijk) = 1.0
               u(ijk) = uin+perturb
               v(ijk) = vin+perturb
               w(ijk) = perturb
@@ -114,13 +114,13 @@ C-----------------------------------------------------------------------
               uin = uprof(j+2*(nj-1))
               vin = vprof(j+2*(nj-1))
               call random_number(random)
-              perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
+              perturb = 0.01*uprof(nj-1)*2.0*(random-0.5)
               fin = 0.0
               rhoin = rhohi
               call random_number(random)
-              perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
+              perturb = 0.01*uprof(nj-1)*2.0*(random-0.5)
               win = perturb
-              sc1(ijk) = 1.0
+              sc1(ijk) = 0.0
               u(ijk) = uin+perturb
               v(ijk) = vin+perturb
               w(ijk) = perturb
@@ -133,13 +133,13 @@ C-----------------------------------------------------------------------
               uin = uprof(j+3*(nj-1))
               vin = vprof(j+3*(nj-1))
               call random_number(random)
-              perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
+              perturb = 0.01*uprof(nj-1)*2.0*(random-0.5)
               fin = 0.0
               rhoin = rhohi
               call random_number(random)
-              perturb = 0.005*uprof(nj-1)*2.0*(random-0.5)
+              perturb = 0.01*uprof(nj-1)*2.0*(random-0.5)
               win = perturb
-              sc1(ijk) = 1.0
+              sc1(ijk) = 0.0
               u(ijk) = uin+perturb
               v(ijk) = vin+perturb
               w(ijk) = perturb

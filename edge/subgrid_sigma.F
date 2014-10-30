@@ -268,6 +268,16 @@ C ... SET GAM FOR OTHER DIRECTION & NOT OVERWRITE TW_SFK
 ! 5. Compute sigma.
         sigmafinal = (sigma3*(sigma1-sigma2)*(sigma2-sigma3))
      &                  /(sigma1**2.0)
+        if(isnan(sigmafinal)) then
+!         write(*,*) 'invari1:',invari1,'invari2:',invari2,'in3:',invari3
+!         write(*,*) 'inside:',alpha2/(alpha1**1.5)
+!         write(*,*) 'acos:',acos(alpha2/(alpha1**1.5))
+        if(pe .eq. 6) then 
+        write(*,*) i,j,k,ijk,pe
+        endif  
+         !write(*,*) '...'
+!         STOP
+        endif
 ! not needed.
 ! trace part - dij gkk
 
@@ -280,15 +290,16 @@ C ... SET GAM FOR OTHER DIRECTION & NOT OVERWRITE TW_SFK
 !         SdijSdij = Sdij**2 
 !
         delta_xyz = (di*dj*dk)**.33333333
-
+!        write(*,*) 'delta_xyz:',delta_xyz
 
 !Cs here refers to the wale constant
         evisc = (csles*delta_xyz)**2
+!        if(isnan(evisc)) write(*,*) 'evisc:',evisc
 
 !        gam(ijk) = evisc*( (SdijSdij)**1.5 / 
 !     &          (sijsij**2.5 + SdijSdij**1.25))
         gam(ijk) = evisc*sigmafinal   
-
+!        write(*,*) 'gam(ijk):',gam(ijk)
             if(csles .eq. 0.0) then
             gamsc1(ijk) = 0.0
             else 
