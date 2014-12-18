@@ -67,7 +67,7 @@ c Read inlet data
  
        if(step .eq. 1 .and. New_Run .eq. .false.) then
          do ibl = 1, numbl
-         if(iblkl2g(ibl).ge.inblock.and.iblkl2g(ibl).le.inblock+23) then
+         if(iblkl2g(ibl).ge.inblock.and.iblkl2g(ibl).le.inblock+7) then
          dm=iblkl2g(ibl)
          open(unit=15000+dm)
           rewind(15000+dm)
@@ -83,7 +83,7 @@ c Read inlet data
 
 
          do ibl = 1, numbl
-         if(iblkl2g(ibl).ge.inblock.and.iblkl2g(ibl).le.inblock+23) then
+         if(iblkl2g(ibl).ge.inblock.and.iblkl2g(ibl).le.inblock+7) then
             dm = iblkl2g(ibl)
             nip1 = mg_nijkp1(1,ibl,1)
             njp1 = mg_nijkp1(2,ibl,1)
@@ -188,7 +188,7 @@ c Read inlet data
 !       write(*,*) 'done with averaging'
 
         if(mod(step, 1000) .eq. 0) then
-        if(iblkl2g(ibl).ge.inblock.and.iblkl2g(ibl).le.inblock+23) then
+        if(iblkl2g(ibl).ge.inblock.and.iblkl2g(ibl).le.inblock+7) then
         dm = iblkl2g(ibl)
         open(unit=15000+dm)
         rewind(15000+dm)
@@ -227,7 +227,7 @@ c Read inlet data
       do ibl = 1, numbl
        if(mod(step, 100) .eq. 0 .and. step .ge. 200) then
           if (iblkl2g(ibl) .ge. inblock .and. iblkl2g(ibl) .le.
-     &              inblock+23)  then
+     &              inblock+7)  then
             dm = iblkl2g(ibl)
             nip1 = mg_nijkp1(1,ibl,1)
             njp1 = mg_nijkp1(2,ibl,1)
@@ -277,7 +277,7 @@ c Read inlet data
        endif !mod
 
 !this is for the recycling of data onto the inlet plane
-          if (iblkl2g(ibl) .eq. inblock+23)  then
+          if (iblkl2g(ibl) .eq. inblock+7)  then
            dm = iblkl2g(ibl)
           nip1 = mg_nijkp1(1,ibl,1)
             njp1 = mg_nijkp1(2,ibl,1)
@@ -310,11 +310,11 @@ c Read inlet data
       enddo   !ibl - master loop
 
 !Broadcast data to all cpus (lazy as inlet block is the target)
-        call MPI_BCAST(utemp, 66*258, REAL_TYPE_MPI, inblock+23-1, 
+        call MPI_BCAST(utemp, 66*258, REAL_TYPE_MPI, inblock+7-1, 
      &  MPI_COMM_WORLD, ierr)
-        call MPI_BCAST(vtemp, 66*258, REAL_TYPE_MPI, inblock+23-1, 
+        call MPI_BCAST(vtemp, 66*258, REAL_TYPE_MPI, inblock+7-1, 
      &  MPI_COMM_WORLD, ierr)
-        call MPI_BCAST(wtemp, 66*258, REAL_TYPE_MPI, inblock+23-1, 
+        call MPI_BCAST(wtemp, 66*258, REAL_TYPE_MPI, inblock+7-1, 
      &  MPI_COMM_WORLD, ierr)
 
 

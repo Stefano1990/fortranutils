@@ -35,10 +35,10 @@ c      parameter (maxra    = 50000000)
       parameter (maxsv    =      20)
       parameter (maxsbc   =      20)
       parameter (maxpe    =       1)
-      parameter (maxmgl   =       3)
+      parameter (maxmgl   =       2)
 C     Maximum number of blocks in total. It is 
 C     important that this be correct.
-      parameter (maxbl    =     160) 
+      parameter (maxbl    =     96) 
 C     Maximum number of blocks per rank. To be
 C     safe, just make this equal to maxbl; there
 C     is very little to be gained (at the moment)

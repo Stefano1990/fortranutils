@@ -502,9 +502,10 @@ C STORE H(N) FOR NEXT TIME STEP
 
 !Arbitrary limiters for upper and lower streams
 !               if ( iblk .le. 8) sc1tmp = 0.0
-               if ( iblk .ge. 33 .and. iblk .le. 40) sc1tmp = 0.0
-               if ( iblk .ge. 65 .and. iblk .le. 88) sc1tmp = 1.0
-               if ( iblk .ge. 113 .and. iblk .le. 136) sc1tmp = 1.0
+               if ( iblk .ge. 1  .and. iblk .le. 8)  sc1tmp = 0.0
+               if ( iblk .ge. 25 .and. iblk .le. 32) sc1tmp = 0.0
+               if ( iblk .ge. 49 .and. iblk .le. 56) sc1tmp = 1.0
+               if ( iblk .ge. 73 .and. iblk .le. 80) sc1tmp = 1.0
                sc1(ijk) = sc1tmp
 
           end do

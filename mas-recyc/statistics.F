@@ -633,7 +633,7 @@ C  LOCAL
       do iblk = 1,numbl
 !generalise this?  You know that it'll always be
 !the plane of the splitter plate
-        if(iblkl2g(iblk) .ge. 88 .and. iblkl2g(iblk) .le. 112) then
+        if(iblkl2g(iblk) .ge. 57 .and. iblkl2g(iblk) .le. 72) then
 
         unitnum = 7000+iblkl2g(iblk)
         nip1 = bl_nijkp1(1,iblk)

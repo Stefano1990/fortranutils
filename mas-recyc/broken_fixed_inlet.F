@@ -192,9 +192,16 @@ c Read inlet data
 
 !         write(*,*) pe, j, jdum, uprof(j)
         enddo
+        ! added this on 17/12
+!        uprof(2*nj+1) = -uprof(2*nj)
+!        vprof(2*nj+1) = vprof(2*nj)
         close(unit=1980+m) 
         endif
-
+      if(iblkl2g(ibl).eq.inlet3+1) then 
+       do j=1,64
+        write(*,*) j,uprof(j),vprof(j)
+       enddo
+      endif
 
         
        enddo !ibl

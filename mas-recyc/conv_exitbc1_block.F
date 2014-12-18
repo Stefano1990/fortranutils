@@ -76,8 +76,10 @@ C-----------------------------------------------------------------------
 
 !these comments are for a neumann condition
 !should really formalise this with a switch
+
 !       u_int(ijk) = u(ijk-1)  
-       if(d1 .eq. SV_U .and. u_int(ijk) .lt. 0.0) u_int(ijk) = 0.0
+!this can help with negative velocities at the outflow boundary
+!       if(d1 .eq. SV_U .and. u_int(ijk) .lt. 0.0) u_int(ijk) = 0.0
 
             hn(ijk) = h
           end do

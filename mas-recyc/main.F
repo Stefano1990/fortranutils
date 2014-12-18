@@ -130,7 +130,6 @@
       call dataread
       call read_bl_info(ierr)
 
-
 !Send block information to relevant processes
       if(master)then
         do iblk=1,numbl_total

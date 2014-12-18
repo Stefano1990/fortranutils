@@ -71,7 +71,7 @@ C-----------------------------------------------------------------------
                   ijk = i + jkoff
               ij = i + joffy
 
-       if(iblkl2g(ibl) .le. 32) then
+       if(iblkl2g(ibl) .le. 24) then
        call random_number(random)
        perturb = 0.05*uprof(2)*2.0*(random-0.5)
         u(ijk) = uprof(j) + perturb
@@ -83,7 +83,7 @@ C-----------------------------------------------------------------------
         rho(ijk) = rholo
         rhonm1(ijk) = rholo
         rhonp1(ijk) = rholo
-       else if(iblkl2g(ibl) .ge. 33 .and. iblkl2g(ibl) .le. 64) then
+       else if(iblkl2g(ibl) .ge. 25 .and. iblkl2g(ibl) .le. 48) then
         call random_number(random)
        perturb = 0.05*uprof(2)*2.0*(random-0.5)
         u(ijk) = uprof(j+(nj-1)) + perturb
@@ -95,7 +95,7 @@ C-----------------------------------------------------------------------
         rho(ijk) = rholo
         rhonm1(ijk) = rholo
         rhonp1(ijk) = rholo 
-        else if(iblkl2g(ibl) .ge. 65 .and. iblkl2g(ibl) .le. 112) then 
+        else if(iblkl2g(ibl) .ge. 49 .and. iblkl2g(ibl) .le. 72) then 
         call random_number(random)
        perturb = 0.1*uprof(2*(nj-2))*2.0*(random-0.5)
 !         write(*,*) pe, perturb
@@ -108,7 +108,7 @@ C-----------------------------------------------------------------------
         rho(ijk) = rhohi
         rhonm1(ijk) = rhohi
         rhonp1(ijk) = rhohi  
-        else if(iblkl2g(ibl) .ge. 113 .and. iblkl2g(ibl) .le. 160) then 
+        else if(iblkl2g(ibl) .ge. 73 .and. iblkl2g(ibl) .le. 96) then 
         call random_number(random)
        perturb = 0.1*uprof(2*(nj-2))*2.0*(random-0.5)
         u(ijk) = uprof(j+(nj-1)) + perturb
